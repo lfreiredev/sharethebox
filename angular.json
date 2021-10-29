@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "sharethebox"
+    }
+  },
+  "defaultProject": "sharethebox",
+  "cli": {
+    "analytics": "f50bf9c7-cd21-42d5-85c0-c69e5026a985"
+  }
 }

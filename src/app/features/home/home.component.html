@@ -1,0 +1,14 @@
+<div>Home</div>
+<button class="btn btn-primary" (click)="getUser()">Get User</button>
+<button class="btn btn-primary" (click)="getProfile()">Get Profile</button>
+<button class="btn btn-primary" (click)="signout()">Logout</button>
+<button class="btn btn-primary" (click)="addBox()">Add Box</button>
+<button class="btn btn-primary" (click)="getBoxes()">Get Boxes</button>
+
+<div *ngFor="let box of boxes">
+    <span>{{ box.amount }}</span> - 
+    <span>{{ box.width }}</span> -
+    <span>{{ box.height }}</span> - 
+    <span>{{ box.length }}</span> -
+    <img *ngIf="lastUrl" [src]="lastUrl" style="height: 150px">
+</div>

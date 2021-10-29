@@ -3,16 +3,32 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from 'src/app/features/login/login.component';
+import { RegistrationComponent } from 'src/app/features/registration/registration.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './features/home/home.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { ProfileComponent } from './features/profile/profile.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AddBoxComponent } from './features/add-box/add-box.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegistrationComponent,
+    HomeComponent,
+    ProfileComponent,
+    AddBoxComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GooglePlaceModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
