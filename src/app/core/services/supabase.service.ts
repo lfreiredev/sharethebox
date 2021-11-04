@@ -3,6 +3,7 @@ import { createClient, SupabaseClient, AuthChangeEvent, Session } from '@supabas
 import { environment } from "src/environments/environment";
 import { Profile } from 'src/app/core/models/profile.model';
 import { Box } from '../models/box.model';
+import { Search } from '../models/search.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,12 +59,22 @@ export class SupabaseService {
     });
   }
 
-  getBoxes() {
+  searchBoxes(search: Search) {
     return this.supabaseClient
-      .from('boxes')
-      .select('*')
-      // .eq('id', this.user?.id)
-      // .single();
+      .rpc('search_boxes', {
+        hasimage: search.hasImage,
+        minamount: search.minAmount,
+        maxamount: search.maxAmount,
+        minwidth: search.minWidth,
+        maxwidth: search.maxWidth,
+        minheight: search.minHeight,
+        maxheight: search.maxHeight,
+        minlength: search.minLength,
+        maxlength: search.maxLength,
+        lat: search.lat, 
+        lng: search.lng, 
+        radius: search.radius 
+      });
   }
   
   addBox(box: Box) {

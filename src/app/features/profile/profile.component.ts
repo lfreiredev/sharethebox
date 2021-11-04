@@ -40,6 +40,8 @@ export class ProfileComponent implements OnInit {
     this.address = address.formatted_address;
     this.lat = address.geometry.location.lat();
     this.lng = address.geometry.location.lng();
+    console.log(this.lat);
+    console.log(this.lng);
   }
 
   async onSubmit() {
