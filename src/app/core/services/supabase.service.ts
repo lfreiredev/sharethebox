@@ -11,7 +11,7 @@ import { Search } from '../models/search.model';
 export class SupabaseService {
   private supabaseClient: SupabaseClient
 
-  constructor() { 
+  constructor() {
     this.supabaseClient = createClient(environment.supabaseUrl, environment.supbaseKey);
   }
 
@@ -48,21 +48,20 @@ export class SupabaseService {
   }
 
   updateProfile(profile: Profile) {
-    const update = {
-      ...profile,
-      id: this.user?.id,
-      updated_at: new Date()
-    }
-
-    return this.supabaseClient.from('profiles').upsert(update, {
-      returning: 'minimal'
-    });
+    return this.supabaseClient
+      .rpc('add_profile', {
+        id: this.user?.id,
+        name: profile.name,
+        address: profile.address,
+        lat: profile.lat,
+        lng: profile.lng
+      });
   }
 
   searchBoxes(search: Search) {
     return this.supabaseClient
       .rpc('search_boxes', {
-        hasimage: search.hasImage,
+        // hasimage: search.hasImage,
         minamount: search.minAmount,
         maxamount: search.maxAmount,
         minwidth: search.minWidth,
@@ -71,12 +70,12 @@ export class SupabaseService {
         maxheight: search.maxHeight,
         minlength: search.minLength,
         maxlength: search.maxLength,
-        lat: search.lat, 
-        lng: search.lng, 
-        radius: search.radius 
+        lat: search.lat,
+        lng: search.lng,
+        radius: search.radius
       });
   }
-  
+
   addBox(box: Box) {
     const update = {
       ...box,

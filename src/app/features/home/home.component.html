@@ -5,58 +5,87 @@
 <button class="btn btn-primary" (click)="addBox()">Add Box</button>
 <button class="btn btn-primary" (click)="getBoxes()">Get Boxes</button>
 
-<div [formGroup]="form">
-    <div class="form-group">
-        <label for="hasImage">Has image</label>
-        <input type="checkbox" formControlName="hasImage" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="minAmount">Min Amount</label>
-        <input type="number" formControlName="minAmount" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="maxAmount">Max Amount</label>
-        <input type="number" formControlName="maxAmount" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="minWidth">Min Width</label>
-        <input type="number" formControlName="minWidth" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="maxWidth">Max Width</label>
-        <input type="number" formControlName="maxWidth" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="minHeight">Min Height</label>
-        <input type="number" formControlName="minHeight" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="maxHeight">Max Height</label>
-        <input type="number" formControlName="maxHeight" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="minLength">Min Length</label>
-        <input type="number" formControlName="minLength" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="maxLength">Max Length</label>
-        <input type="number" formControlName="maxLength" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="location">Location</label>
-        <input ngx-google-places-autocomplete class="form-control" formControlName="location"
-            (onAddressChange)="handleAddressChange($event)" />
-    </div>
-    <div class="form-group">
-        <label for="radius">Radius</label>
-        <input type="number" formControlName="radius" class="form-control" />
+<div class="container">
+    <div [formGroup]="form">
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="hasImage">Has image</label>
+                    <input type="checkbox" formControlName="hasImage" class="form-control" />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input ngx-google-places-autocomplete class="form-control" formControlName="location"
+                        (onAddressChange)="handleAddressChange($event)" />
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="radius">Radius</label>
+                    <input type="number" formControlName="radius" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="minAmount">Min Amount</label>
+                    <input type="number" formControlName="minAmount" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="maxAmount">Max Amount</label>
+                    <input type="number" formControlName="maxAmount" class="form-control" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="minWidth">Min Width</label>
+                    <input type="number" formControlName="minWidth" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="maxWidth">Max Width</label>
+                    <input type="number" formControlName="maxWidth" class="form-control" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="minHeight">Min Height</label>
+                    <input type="number" formControlName="minHeight" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="maxHeight">Max Height</label>
+                    <input type="number" formControlName="maxHeight" class="form-control" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="minLength">Min Length</label>
+                    <input type="number" formControlName="minLength" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="maxLength">Max Length</label>
+                    <input type="number" formControlName="maxLength" class="form-control" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div *ngFor="let box of boxes">
-    <span>{{ box.amount }}</span> - 
-    <span>{{ box.width }}</span> -
-    <span>{{ box.height }}</span> - 
-    <span>{{ box.length }}</span> -
-    <img *ngIf="box.image" [src]="box.image" style="height: 150px">
-</div>
+<table>
+    <tr>
+        <th>Amount</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Length</th>
+        <th>Image</th>
+    </tr>
+    <tr *ngFor="let box of boxes">
+        <td>{{ box.amount }}</td>
+        <td>{{ box.width }}</td>
+        <td>{{ box.height }}</td>
+        <td>{{ box.length }}</td>
+        <td><img *ngIf="box.image" [src]="box.image" style="height: 50px"></td>
+    </tr>
+</table>

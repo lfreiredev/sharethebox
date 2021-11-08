@@ -11,6 +11,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './features/profile/profile.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AddBoxComponent } from './features/add-box/add-box.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AddBoxComponent } from './features/add-box/add-box.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    NgbModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

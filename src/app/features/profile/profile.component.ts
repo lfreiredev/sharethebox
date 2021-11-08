@@ -36,12 +36,9 @@ export class ProfileComponent implements OnInit {
   get f() { return this.profileForm.controls; }
 
   handleAddressChange(address: any) {
-    console.log(address);
     this.address = address.formatted_address;
     this.lat = address.geometry.location.lat();
     this.lng = address.geometry.location.lng();
-    console.log(this.lat);
-    console.log(this.lng);
   }
 
   async onSubmit() {
