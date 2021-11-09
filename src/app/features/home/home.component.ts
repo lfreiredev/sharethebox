@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Box, BoxWithImage } from 'src/app/core/models/box.model';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
     private supabaseService: SupabaseService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private readonly dom: DomSanitizer
+    private readonly dom: DomSanitizer,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,14 @@ export class HomeComponent implements OnInit {
       maxLength: [],
       location: [''],
       radius: [1000]
+    });
+
+    this.getBoxes();
+  }
+
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    }, (reason) => {
     });
   }
 
@@ -83,7 +93,7 @@ export class HomeComponent implements OnInit {
       lng: this.lng,
       radius: this.form.controls.radius.value
     });
-    
+
     if (error) {
       console.log(error);
       return;

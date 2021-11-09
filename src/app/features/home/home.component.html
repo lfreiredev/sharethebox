@@ -1,91 +1,158 @@
-<div>Home</div>
-<button class="btn btn-primary" (click)="getUser()">Get User</button>
-<button class="btn btn-primary" (click)="getProfile()">Get Profile</button>
-<button class="btn btn-primary" (click)="signout()">Logout</button>
-<button class="btn btn-primary" (click)="addBox()">Add Box</button>
-<button class="btn btn-primary" (click)="getBoxes()">Get Boxes</button>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="assets/imgs/logo.png" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li> -->
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" click="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-<div class="container">
-    <div [formGroup]="form">
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="hasImage">Has image</label>
-                    <input type="checkbox" formControlName="hasImage" class="form-control" />
+<div class="container mt-5">
+    <div class="row">
+        <div class="col mr-4">
+            <ul [formGroup]="form">
+                <h3 class="mb-3">Filters</h3>
+                <button class="btn btn-primary mb-3" (click)="getBoxes()">Search</button>
+                <div class="row">
+                    <!-- <div class="col-3">
+                        <div class="form-group">
+                            <label for="hasImage">Has image</label>
+                            <input type="checkbox" formControlName="hasImage" class="form-control" />
+                        </div>
+                    </div> -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input ngx-google-places-autocomplete class="form-control" formControlName="location"
+                                (onAddressChange)="handleAddressChange($event)" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <input ngx-google-places-autocomplete class="form-control" formControlName="location"
-                        (onAddressChange)="handleAddressChange($event)" />
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="radius">Radius</label>
+                            <div class="input-group">
+                                <input type="number" formControlName="radius" class="form-control" />
+                                <span class="input-group-text">meters</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="radius">Radius</label>
-                    <input type="number" formControlName="radius" class="form-control" />
+                <label for="minAmount">Amount</label>
+                <div class="row form-group">
+                    <div class="col">
+                        <input type="number" min="0" formControlName="minAmount" class="form-control"
+                            placeholder="Min" />
+                    </div>
+                    <div class="col">
+                        <input type="number" formControlName="maxAmount" class="form-control" placeholder="Max" />
+                    </div>
                 </div>
-            </div>
+                <label for="minWidth">Width (cm)</label>
+                <div class="row form-group">
+                    <div class="col">
+                        <input type="number" formControlName="minWidth" class="form-control" placeholder="Min" />
+                    </div>
+                    <div class="col">
+                        <input type="number" formControlName="maxWidth" class="form-control" placeholder="Max" />
+                    </div>
+                </div>
+                <label for="minWidth">Height (cm)</label>
+                <div class="row form-group">
+                    <div class="col">
+                        <input type="number" min="0" formControlName="minHeight" class="form-control"
+                            placeholder="Min" />
+                    </div>
+                    <div class="col">
+                        <input type="number" formControlName="maxHeight" class="form-control" placeholder="Max" />
+                    </div>
+                </div>
+                <label for="minWidth">Length (cm)</label>
+                <div class="row form-group">
+                    <div class="col">
+                        <input type="number" min="0" formControlName="minLength" class="form-control"
+                            placeholder="Min" />
+                    </div>
+                    <div class="col">
+                        <input type="number" formControlName="maxLength" class="form-control" placeholder="Max" />
+                    </div>
+                </div>
+            </ul>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="minAmount">Min Amount</label>
-                    <input type="number" formControlName="minAmount" class="form-control" />
+
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <h3 class="mb-3">Boxes</h3>
                 </div>
-                <div class="form-group">
-                    <label for="maxAmount">Max Amount</label>
-                    <input type="number" formControlName="maxAmount" class="form-control" />
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="minWidth">Min Width</label>
-                    <input type="number" formControlName="minWidth" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="maxWidth">Max Width</label>
-                    <input type="number" formControlName="maxWidth" class="form-control" />
+                <div class="col-3">
+                    <button class="btn btn-primary" (click)="addBox()">Add Box</button>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="minHeight">Min Height</label>
-                    <input type="number" formControlName="minHeight" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="maxHeight">Max Height</label>
-                    <input type="number" formControlName="maxHeight" class="form-control" />
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="minLength">Min Length</label>
-                    <input type="number" formControlName="minLength" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="maxLength">Max Length</label>
-                    <input type="number" formControlName="maxLength" class="form-control" />
-                </div>
-            </div>
+            <table class="table">
+                <tr>
+                    <th>Amount</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Length</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let box of boxes">
+                    <td>{{ box.amount }}</td>
+                    <td>{{ box.width }}</td>
+                    <td>{{ box.height }}</td>
+                    <td>{{ box.length }}</td>
+                    <td>
+                        <img *ngIf="box.image" [src]="box.image">
+                        <span *ngIf="!box.image">NA</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" (click)="open(content)">Contact</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
 
-<table>
-    <tr>
-        <th>Amount</th>
-        <th>Width</th>
-        <th>Height</th>
-        <th>Length</th>
-        <th>Image</th>
-    </tr>
-    <tr *ngFor="let box of boxes">
-        <td>{{ box.amount }}</td>
-        <td>{{ box.width }}</td>
-        <td>{{ box.height }}</td>
-        <td>{{ box.length }}</td>
-        <td><img *ngIf="box.image" [src]="box.image" style="height: 50px"></td>
-    </tr>
-</table>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Contact information</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name"><strong>Name</strong></label>
+            <p>Leonardo</p>
+        </div>
+        <div class="form-group">
+            <label for="email"><strong>Email</strong></label>
+            <p>leo@hotmail.com</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+</ng-template>
