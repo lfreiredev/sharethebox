@@ -101,13 +101,23 @@ export class HomeComponent implements OnInit {
 
     console.log(data);
     this.boxes = data as BoxWithImage[];
-    this.boxes.forEach(async (box) => {
-      if (box.imageUrl) {
-        const { data, error } = await this.supabaseService.downloadBoxImage(box.imageUrl);
-        if (data) {
-          box.image = this.dom.bypassSecurityTrustResourceUrl(URL.createObjectURL(data))
+    if (this.supabaseService.user) {
+      this.boxes.forEach(async (box) => {
+        if (box.imageUrl) {
+          const { data, error } = await this.supabaseService.downloadBoxImage(box.imageUrl);
+          if (data) {
+            box.image = this.dom.bypassSecurityTrustResourceUrl(URL.createObjectURL(data))
+          }
         }
-      }
-    })
+      });
+    }
+  }
+
+  goToRegistration() {
+    this.router.navigate(['register']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['login']);
   }
 }

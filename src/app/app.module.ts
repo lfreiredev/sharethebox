@@ -12,6 +12,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AddBoxComponent } from './features/add-box/add-box.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowAuthedDirective } from './core/directives/show-authed.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegistrationComponent,
     HomeComponent,
     ProfileComponent,
-    AddBoxComponent
+    AddBoxComponent,
+    ShowAuthedDirective
   ],
   imports: [
     BrowserModule,

@@ -59,21 +59,34 @@ export class SupabaseService {
   }
 
   searchBoxes(search: Search) {
-    return this.supabaseClient
-      .rpc('search_boxes', {
-        // hasimage: search.hasImage,
-        minamount: search.minAmount,
-        maxamount: search.maxAmount,
-        minwidth: search.minWidth,
-        maxwidth: search.maxWidth,
-        minheight: search.minHeight,
-        maxheight: search.maxHeight,
-        minlength: search.minLength,
-        maxlength: search.maxLength,
-        lat: search.lat,
-        lng: search.lng,
-        radius: search.radius
-      });
+    return this.user 
+      ? this.supabaseClient
+          .rpc('search_boxes', {
+            // hasimage: search.hasImage,
+            minamount: search.minAmount,
+            maxamount: search.maxAmount,
+            minwidth: search.minWidth,
+            maxwidth: search.maxWidth,
+            minheight: search.minHeight,
+            maxheight: search.maxHeight,
+            minlength: search.minLength,
+            maxlength: search.maxLength,
+            lat: search.lat,
+            lng: search.lng,
+            radius: search.radius
+          })
+      : this.supabaseClient
+        .rpc('search_boxes_anon', {
+          // hasimage: search.hasImage,
+          minamount: search.minAmount,
+          maxamount: search.maxAmount,
+          minwidth: search.minWidth,
+          maxwidth: search.maxWidth,
+          minheight: search.minHeight,
+          maxheight: search.maxHeight,
+          minlength: search.minLength,
+          maxlength: search.maxLength,
+        });
   }
 
   addBox(box: Box) {

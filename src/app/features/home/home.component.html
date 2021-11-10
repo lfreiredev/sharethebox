@@ -18,8 +18,14 @@
             </li> -->
         </ul>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" click="logout()">Logout</a>
+            <li *showAuthed="false" class="nav-item" (click)="goToRegistration()">
+                <a class="nav-link">Sign Up</a>
+            </li>
+            <li *showAuthed="false" class="nav-item" (click)="goToLogin()">
+                <a class="nav-link">Sign In</a>
+            </li>
+            <li *showAuthed="true" class="nav-item" (click)="signout()">
+                <a class="nav-link">Logout</a>
             </li>
         </ul>
     </div>
@@ -27,11 +33,11 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col mr-4">
+        <div class="col-4 mr-4">
             <ul [formGroup]="form">
                 <h3 class="mb-3">Filters</h3>
                 <button class="btn btn-primary mb-3" (click)="getBoxes()">Search</button>
-                <div class="row">
+                <div class="row" *showAuthed="true">
                     <!-- <div class="col-3">
                         <div class="form-group">
                             <label for="hasImage">Has image</label>
@@ -46,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *showAuthed="true">
                     <div class="col">
                         <div class="form-group">
                             <label for="radius">Radius</label>
@@ -99,13 +105,13 @@
             </ul>
         </div>
 
-        <div class="col-8">
+        <div class="col">
             <div class="row">
                 <div class="col">
                     <h3 class="mb-3">Boxes</h3>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-primary" (click)="addBox()">Add Box</button>
+                    <button *showAuthed="true" class="btn btn-primary" (click)="addBox()">Add Box</button>
                 </div>
             </div>
             <table class="table">
@@ -114,7 +120,7 @@
                     <th>Width</th>
                     <th>Height</th>
                     <th>Length</th>
-                    <th>Image</th>
+                    <th *showAuthed="true">Image</th>
                     <th>Action</th>
                 </tr>
                 <tr *ngFor="let box of boxes">
@@ -122,12 +128,13 @@
                     <td>{{ box.width }}</td>
                     <td>{{ box.height }}</td>
                     <td>{{ box.length }}</td>
-                    <td>
+                    <td *showAuthed="true">
                         <img *ngIf="box.image" [src]="box.image">
                         <span *ngIf="!box.image">NA</span>
                     </td>
                     <td>
-                        <button class="btn btn-primary" (click)="open(content)">Contact</button>
+                        <button *showAuthed="true" class="btn btn-primary" (click)="open(content)">Contact</button>
+                        <button *showAuthed="false" class="btn btn-primary" placement="top" ngbTooltip="Please sign in to view the contact info">Contact</button>
                     </td>
                 </tr>
             </table>
