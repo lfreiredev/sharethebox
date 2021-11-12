@@ -47,20 +47,24 @@ export class AddBoxComponent implements OnInit {
     }
 
     this.loading = true;
-    const { data: imgData, error: imgError } = await this.supabaseService.uploadBoxImage(this.fileName, this.file);
-    if (imgError) {
-      console.log(imgError);
-      return;
+    let img;
+    if (this.file) {
+      const { data: imgData, error: imgError } = await this.supabaseService.uploadBoxImage(this.fileName, this.file);
+      if (imgError) {
+        console.log(imgError);
+        return;
+      }
+
+      img = imgData.Key.split('boxes/')[1];
     }
 
-    console.log(imgData);
     const { data, error } = await this.supabaseService.addBox({
       user_id: this.supabaseService.user?.id,
       amount: this.f.amount.value,
       width: this.f.width.value,
       height: this.f.height.value,
       length: this.f.length.value,
-      imageUrl: imgData.Key,
+      imageUrl: img,
     });
 
     if (error) {
@@ -69,7 +73,7 @@ export class AddBoxComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/home']);
+    this.activeModal.close(true);
   }
 
   onFileChanged(files: FileList) {

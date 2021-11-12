@@ -60,7 +60,7 @@ export class SupabaseService {
 
   searchProfile(userId: string) {
     return this.supabaseClient
-      .from('profiles')
+      .from('search_profile')
       .select(`*`)
       .eq('id', userId)
       .single();

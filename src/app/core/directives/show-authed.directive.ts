@@ -31,7 +31,7 @@ export class ShowAuthedDirective implements OnInit {
         }
 
         this.supabaseService.authChanges((event: AuthChangeEvent, session: Session | null) => {
-            if (this.supabaseService.user && this.condition) {
+            if (this.supabaseService.user && this.condition || !this.supabaseService.user && !this.condition) {
                 this.viewContainerRef.createEmbeddedView(this.templateRef);
             } else {
                 this.viewContainerRef.clear();

@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
     }
 
     this.currentName = data.name;
+    this.currentEmail = data.email;
     
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
@@ -85,8 +86,14 @@ export class HomeComponent implements OnInit {
   }
 
   async addBox() {
-    this.modalService.open(AddBoxComponent, { ariaLabelledBy: 'modal-basic-title' });
-    // this.router.navigate(['add-box']);
+    this.modalService
+      .open(AddBoxComponent, { ariaLabelledBy: 'modal-basic-title' })
+      .result
+      .then(success => {
+        if (success) {
+          this.getBoxes();
+        }
+      });
   }
 
   async getBoxes() {
