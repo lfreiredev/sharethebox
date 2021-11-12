@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class AddBoxComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private supabaseService: SupabaseService,
+    public activeModal: NgbActiveModal
     // private alertService: AlertService
   ) { }
 

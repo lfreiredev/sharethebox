@@ -1,44 +1,58 @@
-<form [formGroup]="boxForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="amount">Amount</label>
-        <input type="number" formControlName="amount" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
-        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
-            <div *ngIf="f.amount.errors.required">Amount is required</div>
+<div class="modal-header">
+    <h4 class="modal-title">Add Box</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="boxForm">
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" formControlName="amount" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+            <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                <div *ngIf="f.amount.errors.required">Amount is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="width">Width</label>
-        <input type="number" formControlName="width" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.width.errors }" />
-        <div *ngIf="submitted && f.width.errors" class="invalid-feedback">
-            <div *ngIf="f.width.errors.required">Width is required</div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="width">Width</label>
+                    <input type="number" formControlName="width" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.width.errors }" />
+                    <div *ngIf="submitted && f.width.errors" class="invalid-feedback">
+                        <div *ngIf="f.width.errors.required">Width is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="height">Height</label>
+                    <input type="number" formControlName="height" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.height.errors }" />
+                    <div *ngIf="submitted && f.height.errors" class="invalid-feedback">
+                        <div *ngIf="f.height.errors.required">Height is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="length">Length</label>
+                    <input type="number" formControlName="length" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.length.errors }" />
+                    <div *ngIf="submitted && f.length.errors" class="invalid-feedback">
+                        <div *ngIf="f.length.errors.required">Length is required</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="height">Height</label>
-        <input type="number" formControlName="height" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.height.errors }" />
-        <div *ngIf="submitted && f.height.errors" class="invalid-feedback">
-            <div *ngIf="f.height.errors.required">Height is required</div>
+        <div class="form-group">
+            <label for="file">Image URL</label>
+            <br>
+            <input type="file" name="file" id="file" (change)="onFileChanged($event.target.files)" />
         </div>
-    </div>
-    <div class="form-group">
-        <label for="length">Length</label>
-        <input type="number" formControlName="length" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.length.errors }" />
-        <div *ngIf="submitted && f.length.errors" class="invalid-feedback">
-            <div *ngIf="f.length.errors.required">Length is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="file">Image URL</label>
-        <input type="file" name="file" id="file" (change)="onFileChanged($event.target.files)" />
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Save
-        </button>
-    </div>
-</form>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+</div>

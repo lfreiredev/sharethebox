@@ -58,6 +58,14 @@ export class SupabaseService {
       });
   }
 
+  searchProfile(userId: string) {
+    return this.supabaseClient
+      .from('profiles')
+      .select(`*`)
+      .eq('id', userId)
+      .single();
+  }
+
   searchBoxes(search: Search) {
     return this.user 
       ? this.supabaseClient

@@ -33,7 +33,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-4 mr-4">
+        <div class="col mr-4">
             <ul [formGroup]="form">
                 <h3 class="mb-3">Filters</h3>
                 <button class="btn btn-primary mb-3" (click)="getBoxes()">Search</button>
@@ -105,7 +105,7 @@
             </ul>
         </div>
 
-        <div class="col">
+        <div class="col-8">
             <div class="row">
                 <div class="col">
                     <h3 class="mb-3">Boxes</h3>
@@ -133,7 +133,7 @@
                         <span *ngIf="!box.image">NA</span>
                     </td>
                     <td>
-                        <button *showAuthed="true" class="btn btn-primary" (click)="open(content)">Contact</button>
+                        <button *showAuthed="true" class="btn btn-primary" (click)="open(content, box)">Contact</button>
                         <button *showAuthed="false" class="btn btn-primary" placement="top" ngbTooltip="Please sign in to view the contact info">Contact</button>
                     </td>
                 </tr>
@@ -152,7 +152,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="name"><strong>Name</strong></label>
-            <p>Leonardo</p>
+            <p>{{ currentName }}</p>
         </div>
         <div class="form-group">
             <label for="email"><strong>Email</strong></label>

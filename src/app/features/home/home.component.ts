@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, ElementRef, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Box, BoxWithImage } from 'src/app/core/models/box.model';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
+import { AddBoxComponent } from '../add-box/add-box.component';
 
 @Component({
   selector: 'app-home',
@@ -44,10 +45,19 @@ export class HomeComponent implements OnInit {
     this.getBoxes();
   }
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    }, (reason) => {
-    });
+  currentName: string;
+  currentEmail: string;
+
+  async open(content: TemplateRef<any>, box: Box) {
+    const { data, error } = await this.supabaseService.searchProfile(box.user_id);
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    this.currentName = data.name;
+    
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   handleAddressChange(address: any) {
@@ -71,11 +81,12 @@ export class HomeComponent implements OnInit {
 
   async signout() {
     await this.supabaseService.signOut();
-    this.router.navigate(['login']);
+    this.router.navigate(['home']);
   }
 
   async addBox() {
-    this.router.navigate(['add-box']);
+    this.modalService.open(AddBoxComponent, { ariaLabelledBy: 'modal-basic-title' });
+    // this.router.navigate(['add-box']);
   }
 
   async getBoxes() {
@@ -99,7 +110,6 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    console.log(data);
     this.boxes = data as BoxWithImage[];
     if (this.supabaseService.user) {
       this.boxes.forEach(async (box) => {
