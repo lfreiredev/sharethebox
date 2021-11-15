@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   supabaseUrl: '***REMOVED***',
-  supbaseKey: '***REMOVED***'
+  supabaseKey: '***REMOVED***'
 };
 
 /*

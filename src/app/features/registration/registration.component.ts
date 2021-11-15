@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private supabaseService: SupabaseService,
-    // private alertService: AlertService
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     // reset alerts on submit
-    // this.alertService.clear();
+    this.alertService.clear();
 
     // stop here if form is invalid
     if (this.registrationForm.invalid) {
@@ -48,9 +49,16 @@ export class RegistrationComponent implements OnInit {
 
     this.loading = true;
     const { data, error } = await this.supabaseService.signUp(this.f.email.value, this.f.password.value);
+    debugger;
+    if (data && data['email_confirmed_at']) {
+      this.loading = false;
+      this.alertService.error('Email already registered');
+      return;
+    }
+    
     if (error) {
       this.loading = false;
-      console.log(error);
+      this.alertService.error(error.message);
       return;
     }
 

@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Box, BoxWithImage } from 'src/app/core/models/box.model';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 import { AddBoxComponent } from '../add-box/add-box.component';
 
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private readonly dom: DomSanitizer,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
       minLength: [],
       maxLength: [],
       location: [''],
-      radius: [1000]
+      radius: []
     });
 
     this.getBoxes();
@@ -66,26 +68,18 @@ export class HomeComponent implements OnInit {
     this.lng = address.geometry.location.lng();
   }
 
-  getUser() {
-    console.log(this.supabaseService.user);
-  }
-
-  async getProfile() {
-    const { data, error, status } = await this.supabaseService.profile;
-    if (error) {
-      console.log(error);
-      console.log(status);
-    }
-
-    console.log(data);
-  }
-
   async signout() {
     await this.supabaseService.signOut();
     this.router.navigate(['home']);
   }
 
   async addBox() {
+    const { data, error } = await this.supabaseService.countOwnBoxes();
+    if (data.length >= 2) {
+      this.alertService.error('Can\'t add more boxes. Please talk to the team for further upgrades');
+      return;
+    }
+
     this.modalService
       .open(AddBoxComponent, { ariaLabelledBy: 'modal-basic-title' })
       .result

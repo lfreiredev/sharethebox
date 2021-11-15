@@ -13,6 +13,8 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AddBoxComponent } from './features/add-box/add-box.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowAuthedDirective } from './core/directives/show-authed.directive';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import { Constants } from './core/constants';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { ShowAuthedDirective } from './core/directives/show-authed.directive';
     HomeComponent,
     ProfileComponent,
     AddBoxComponent,
+    AlertComponent,
     ShowAuthedDirective
   ],
   imports: [
@@ -32,7 +35,7 @@ import { ShowAuthedDirective } from './core/directives/show-authed.directive';
     GooglePlaceModule,
     NgbModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, Constants],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

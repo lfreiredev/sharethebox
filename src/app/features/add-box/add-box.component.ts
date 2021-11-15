@@ -25,7 +25,7 @@ export class AddBoxComponent implements OnInit {
     // private alertService: AlertService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.boxForm = this.formBuilder.group({
       amount: [1, Validators.required],
       width: [1, Validators.required],

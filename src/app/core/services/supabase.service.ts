@@ -12,7 +12,7 @@ export class SupabaseService {
   private supabaseClient: SupabaseClient
 
   constructor() {
-    this.supabaseClient = createClient(environment.supabaseUrl, environment.supbaseKey);
+    this.supabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
 
   get user() {
@@ -61,7 +61,7 @@ export class SupabaseService {
   searchProfile(userId: string) {
     return this.supabaseClient
       .from('search_profile')
-      .select(`*`)
+      .select('*')
       .eq('id', userId)
       .single();
   }
@@ -107,6 +107,13 @@ export class SupabaseService {
     return this.supabaseClient.from('boxes').upsert(update, {
       returning: 'minimal'
     });
+  }
+
+  countOwnBoxes() {
+    return this.supabaseClient
+      .from('boxes')
+      .select('*', { count: 'exact' })
+      .eq('user_id', this.user?.id);
   }
 
   uploadBoxImage(filePath: string, file: File) {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Constants } from 'src/app/core/constants';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 
 @Component({
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private supabaseService: SupabaseService,
-    // private alertService: AlertService
+    private alertService: AlertService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     // reset alerts on submit
-    // this.alertService.clear();
+    this.alertService.clear();
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -50,7 +53,7 @@ export class LoginComponent implements OnInit {
     const { data, error } = await this.supabaseService.signIn(this.f.email.value, this.f.password.value);
     if (error) {
       this.loading = false;
-      console.log(error);
+      this.alertService.error(error.message);
       return;
     }
 

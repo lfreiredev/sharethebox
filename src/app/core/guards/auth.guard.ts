@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
         const user = this.supabaseService.user;
 
-        if (!user) {
+        if (!user && !route.data.needAuth) {
             this.router.navigate(['login']);
             return false;
         }

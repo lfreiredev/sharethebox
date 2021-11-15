@@ -114,7 +114,10 @@
                     <button *showAuthed="true" class="btn btn-primary" (click)="addBox()">Add Box</button>
                 </div>
             </div>
-            <table class="table">
+            <h5 *ngIf="!boxes || boxes.length === 0">
+                No data to show. Be the first one to post a box!
+            </h5>
+            <table class="table" *ngIf="boxes && boxes.length > 0">
                 <tr>
                     <th>Amount</th>
                     <th>Width</th>
@@ -133,8 +136,10 @@
                         <span *ngIf="!box.image">NA</span>
                     </td>
                     <td>
-                        <button *showAuthed="true" class="btn btn-primary" (click)="open(content, box)">Contact</button>
-                        <button *showAuthed="false" class="btn btn-primary" placement="top" ngbTooltip="Please sign in to view the contact info">Contact</button>
+                        <button *showAuthed="true" class="btn btn-primary"
+                            (click)="open(content, box)">Contact</button>
+                        <button *showAuthed="false" class="btn btn-primary" placement="top"
+                            ngbTooltip="Please sign in to view the contact info">Contact</button>
                     </td>
                 </tr>
             </table>
@@ -145,7 +150,7 @@
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Contact information</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
