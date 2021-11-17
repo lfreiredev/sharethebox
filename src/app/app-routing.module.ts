@@ -29,13 +29,9 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard],
     data: {
-      isProfile: true
+      isProfile: true,
+      needAuth: true
     }
-  },
-  {
-    path: 'add-box',
-    component: AddBoxComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: '',
