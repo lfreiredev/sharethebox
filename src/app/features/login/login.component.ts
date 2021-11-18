@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from 'src/app/core/constants';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
+import * as fathom from 'fathom-client';
 
 @Component({
   selector: 'app-login',
@@ -58,6 +59,7 @@ export class LoginComponent implements OnInit {
     }
 
     localStorage.setItem('data', JSON.stringify(data));
+    fathom.trackGoal('MADXDDVO', 0);
 
     this.router.navigate([this.returnUrl]);
   }

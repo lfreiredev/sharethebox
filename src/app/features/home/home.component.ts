@@ -7,6 +7,7 @@ import { Box, BoxWithImage } from 'src/app/core/models/box.model';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
 import { AddBoxComponent } from '../add-box/add-box.component';
+import * as fathom from 'fathom-client';
 
 @Component({
   selector: 'app-home',
@@ -51,6 +52,7 @@ export class HomeComponent implements OnInit {
   currentEmail: string;
 
   async open(content: TemplateRef<any>, box: Box) {
+    fathom.trackGoal('IKXUUASE', 0);
     const { data, error } = await this.supabaseService.searchProfile(box.user_id);
     if (error) {
       console.log(error);
@@ -70,12 +72,14 @@ export class HomeComponent implements OnInit {
 
   async signout() {
     await this.supabaseService.signOut();
+    fathom.trackGoal('XRSMIWED', 0);
     this.router.navigate(['home']);
   }
 
   async addBox() {
     const { data, error } = await this.supabaseService.countOwnBoxes();
-    if (data.length >= 2) {
+    if (data.length >= 5) {
+      fathom.trackGoal('BK7GWRZ6', 0);
       this.alertService.error('Can\'t add more boxes. Please talk to the team for further upgrades');
       return;
     }
@@ -85,12 +89,19 @@ export class HomeComponent implements OnInit {
       .result
       .then(success => {
         if (success) {
+          fathom.trackGoal('OAPWNJRZ', 0);
           this.getBoxes();
         }
       });
   }
 
   async getBoxes() {
+    const user = await this.supabaseService.user;
+    if (user) {
+      fathom.trackGoal('LRWTT0RL', 0);
+    } else {
+      fathom.trackGoal('TQFQQTLU', 0);
+    }
     const { data, error } = await this.supabaseService.searchBoxes({
       hasImage: this.form.controls.hasImage.value,
       minAmount: this.form.controls.minAmount.value,

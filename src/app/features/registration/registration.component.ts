@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { SupabaseService } from 'src/app/core/services/supabase.service';
+import * as fathom from 'fathom-client';
 
 @Component({
   selector: 'app-registration',
@@ -49,7 +50,6 @@ export class RegistrationComponent implements OnInit {
 
     this.loading = true;
     const { data, error } = await this.supabaseService.signUp(this.f.email.value, this.f.password.value);
-    debugger;
     if (data && data['email_confirmed_at']) {
       this.loading = false;
       this.alertService.error('Email already registered');
@@ -62,6 +62,7 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
+    fathom.trackGoal('53CMIQMA', 0);
     this.router.navigate([this.returnUrl]);
   }
 }
