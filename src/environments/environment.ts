@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  supabaseUrl: '***REMOVED***',
-  supabaseKey: '***REMOVED***'
+  supabaseUrl: '<url>',
+  supabaseKey: '<key>'
 };
 
 /*
